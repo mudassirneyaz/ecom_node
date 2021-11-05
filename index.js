@@ -78,6 +78,25 @@ app.post("/login", async (req, res) => {
   );
 });
 
+app.get("/getUser/:id",async (req, resp)=>
+{
+ const {id} = req.params;
+ db.query('select * from users where id = ?', [id],
+ async function (error, results, fields){
+   if(error){
+     console.log("Some error occured");
+   }
+    return resp.send({
+     data : results,
+     msg: "Fetched Successfully"
+   })
+
+ }
+ 
+ )
+
+})
+
 app.listen(3000, () => {
   console.log("server running at 3000");
 });
